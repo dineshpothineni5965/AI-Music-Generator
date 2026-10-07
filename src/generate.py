@@ -4,7 +4,7 @@ import tensorflow as tf
 from music21 import stream, note, chord, tempo
 
 MODEL_PATH = "models/music_generator.keras"
-NOTES_PATH = "dataset/processed/notes.pkl"
+SEED_PATH = "dataset/processed/seed.pkl"
 NOTE_TO_INT_PATH = "dataset/processed/note_to_int.pkl"
 INT_TO_NOTE_PATH = "dataset/processed/int_to_note.pkl"
 
@@ -14,8 +14,8 @@ TEMPERATURE = 0.8
 
 model = tf.keras.models.load_model(MODEL_PATH)
 
-with open(NOTES_PATH, "rb") as f:
-    notes = pickle.load(f)
+with open(SEED_PATH, "rb") as f:
+    seed = pickle.load(f)
 
 with open(NOTE_TO_INT_PATH, "rb") as f:
     note_to_int = pickle.load(f)
@@ -26,9 +26,7 @@ with open(INT_TO_NOTE_PATH, "rb") as f:
 print("Model loaded successfully!")
 print("Vocabulary size:", len(note_to_int))
 
-start = np.random.randint(0, len(notes) - SEQUENCE_LENGTH)
-
-pattern = notes[start:start + SEQUENCE_LENGTH]
+pattern = list(seed)
 generated_notes = list(pattern)
 
 print("Generating music...")
@@ -89,4 +87,4 @@ output.write(
 )
 
 print("Music generation complete!")
-print("Saved to: output/generated_music.mid")
+print("Saved to output/generated_music.mid")
