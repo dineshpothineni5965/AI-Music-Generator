@@ -1,0 +1,13 @@
+venv/
+__pycache__/
+*.pyc
+
+dataset/midi/
+dataset/processed/network_input.npy
+dataset/processed/network_output.npy
+dataset/processed/notes.pkl
+
+*.pyx
+
+.ipynb_checkpoints/
+.DS_Store
